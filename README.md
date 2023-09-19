@@ -13,3 +13,24 @@ This repository contains the code for creating the generative models for graphs 
 Wu, Jiaxin, and Pingfeng Wang. "Generative design for resilience of interdependent network systems." Journal of Mechanical Design 145.3 (2023): 031705.
 
 [Link to the paper](https://doi.org/10.1115/1.4056078)
+
+## Output: Generated graph
+Example of a 37 bus power system graph:
+Figure created using python package NetworkX
+
+![image](https://github.com/ibchung72/generative_graph/assets/119267318/e1fde51a-9db0-47de-851b-cfcd198f173e)
+
+## Documentation
+### Requirements
+To allow users to freely access the code and try the training process, it is implemented in a Google Colab environment, where users are not required to have any installation for running the code. 
+Python packages that are used in the code are installed and imported at the beginning blocks of the code.
+If the user wishes to download the code and use it in a local environment, the following python packages must be installed
+- tensorflow-gpu
+- networkx
+
+### How to use
+Each ipynb (python notebook) file has explnations before each code block to give users information about the functions of each part of the code.
+
+## MATLAB SynGrid
+MATLAB SynGrid 
+Refer to the repository for more details: [MATPOWER/SynGrid](https://github.com/MATPOWER/mx-syngrid)
