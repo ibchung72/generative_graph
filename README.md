@@ -24,10 +24,28 @@ To allow users to freely access the code and try the training process, it is imp
 Python packages that are used in the code are installed and imported at the beginning blocks of the code.
 If the user wishes to download the code and use it in a local environment, the following python packages must be installed
 - tensorflow-gpu
+- pandas
+- numpy
 - networkx
 
 ### How to use
 Each ipynb (python notebook) file has explnations before each code block to give users information about the functions of each part of the code.
+
+### Preprocessing
+If the dataset created by SynGrid is not processed yet, set the "load_and_save" to '1' in the third block. Afterwards, load the pickled file instead. 
+
+* Processing the MATLAB data to extract features
+  As the data is set in a MATLAB format, it is modified to a dataset that can be used in the standard python format through pandas.
+  If the users network has different data structure, modify this section to fit the features of the data being used.
+
+* Set graph parameters
+  This block defines the number of nodes in the target graph and the dimensions of the node and edge features.
+  The structure should be adjusted according to the preprocessing steps.
+  Adjacency tensor is structured as (edge feature, number of nodes, number of nodes) to define the connection relationship between nodes as well as the type of the edge connecting the nodes.
+  Feature tensor (matrix) is structured as (number of nodes, node features) to define the type for each node.
+
+### Functions
+- get_adj_feat: 
 
 ## MATLAB SynGrid
 MATLAB SynGrid 
