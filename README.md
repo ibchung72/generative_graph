@@ -85,7 +85,47 @@ Create the discriminator of the GAN model
 
 #### class RelationalGraphConvLayer(keras.layers.Layer)
 
-Define trainable layers of the network 
+Define trainable layers of the network: operation is defined in function 'call(inputs)'
+
+| Parameter | Type     | Description                       |
+| :-------- | :------- | :-------------------------------- |
+| `inputs`      | `list` | list of data [adjacency, features] |
+
+Graph convolutional network (GCN) implementation:
+
+GCN: $H^{l+1}=\sigma(D^{-1}AH^lW^l)$, where $D$ is the degree matrix, $A$ is the weighted (feature induced) adjacency matrix, $W$ is the trainable weights (σ is the activation function)
+
+#### class GraphWGAN(keras.Model)
+
+GAN model using the generator (GraphGenerator) and discriminator (GraphDiscriminator):
+Adjust training epochs and batch size according to the application. 
+
+```ruby
+wgan = GraphWGAN(generator, discriminator, discriminator_steps=1)
+wgan.compile(
+    optimizer_generator=keras.optimizers.Adam(5e-4),
+    optimizer_discriminator=keras.optimizers.Adam(5e-4),
+)
+wgan.fit([adjacency_tensor, feature_tensor], epochs=100, batch_size=32)
+```
+
+### sample(generator, batch_size)
+| Parameter | Type     | Description                       |
+| :-------- | :------- | :-------------------------------- |
+| `generator` | `function` | trained generator network (GraphGenerator) |
+| `batch_size` | `int` | number of networks to generate |
+
+Function 'sample' uses the trained generator to generate new graphs. It outputs the graph built using the generated adjacency tensor and features matrix.
+
+In order to obtain the adjacency tensor and features matrix instead of the built graph, users can remove the last step of the sample function, where it uses get_graph helper function to obtain the graph.
+
+```ruby
+# Change the following return 
+return [ get_graph(adjacency[i].numpy(), features[i].numpy()) for i in range(batch_size) ]
+# to its parts
+return [ [adjacency[i].numpy(), features[i].numpy()] for i in range(batch_size) ]
+```
+
 
 ## MATLAB SynGrid
 MATLAB SynGrid 
