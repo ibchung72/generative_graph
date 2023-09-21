@@ -29,7 +29,7 @@ If the user wishes to download the code and use it in a local environment, the f
 - networkx
 
 ### How to use
-Each ipynb (python notebook) file has explnations before each code block to give users information about the functions of each part of the code.
+Each ipynb (python notebook) file has text explanations before each code block to give users information about the functions of each part of the code.
 
 ### Preprocessing
 If the dataset created by SynGrid is not processed yet, set the "load_and_save" to '1' in the third block. Afterwards, load the pickled file instead. 
@@ -41,11 +41,51 @@ If the dataset created by SynGrid is not processed yet, set the "load_and_save" 
 * Set graph parameters
   This block defines the number of nodes in the target graph and the dimensions of the node and edge features.
   The structure should be adjusted according to the preprocessing steps.
-  Adjacency tensor is structured as (edge feature, number of nodes, number of nodes) to define the connection relationship between nodes as well as the type of the edge connecting the nodes.
-  Feature tensor (matrix) is structured as (number of nodes, node features) to define the type for each node.
 
-### Functions
-- get_adj_feat: 
+### Helper functions
+
+#### get_adj_feat(data)
+| Parameter | Type     | Description                       |
+| :-------- | :------- | :-------------------------------- |
+| `data`      | `list` | list of dataframes [node, edge, capacity] |
+
+Converts the data = [node, edge, capacity] dataframe to [adjacency, features] tensors.
+
+Adjacency tensor is structured as (edge feature, number of nodes, number of nodes) to define the connection relationship between nodes as well as the type of the edge connecting the nodes.
+
+Feature tensor (matrix) is structured as (number of nodes, node features) to define the type for each node.
+
+#### get_graph(adjacency, features)
+
+Creates a graph using the adjacency tensor and features matrix from get_adj_feat
+
+### Functions for generative modeling (GAN)
+
+#### GraphGenerator(*params)
+| Parameter | Type     | Description                       |
+| :-------- | :------- | :-------------------------------- |
+| `dense_units`      | `int list` | Keras: number of units for the fully connected layers |
+| `dropout_rate`      | `float` | Keras: dropout layer |
+| `latent_dim`      | `int` | Dimension of the latent space that the generative model sample |
+| `adjacency_shape`      | `(int, int, int)` | Dimension of the adjacency tensor (edge information) |
+| `feature_shape`      | `(int, int)` | Dimension of the feature matrix (node information) |
+
+Create the generator of the GAN model
+
+#### GraphDiscriminator(*params)
+| Parameter | Type     | Description                       |
+| :-------- | :------- | :-------------------------------- |
+| `gconv_units`      | `int list` | Number of units for the relational graph convolutional layers |
+| `dense_units`      | `int list` | Keras: number of units for the fully connected layers |
+| `dropout_rate`      | `float` | Keras: dropout layer |
+| `adjacency_shape`      | `(int, int, int)` | Dimension of the adjacency tensor (edge information) |
+| `feature_shape`      | `(int, int)` | Dimension of the feature matrix (node information) |
+
+Create the discriminator of the GAN model
+
+#### class RelationalGraphConvLayer(keras.layers.Layer)
+
+Define trainable layers of the network 
 
 ## MATLAB SynGrid
 MATLAB SynGrid 
