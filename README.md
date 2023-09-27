@@ -17,7 +17,7 @@ Wu, Jiaxin, and Pingfeng Wang. "Generative design for resilience of interdepende
 Example of a 37 bus power system graph:
 Figure created using python package NetworkX
 
-![image](https://github.com/ibchung72/generative_graph/assets/119267318/e1fde51a-9db0-47de-851b-cfcd198f173e)
+![image](GAN_generation_example.png)
 
 (One of the graphs in pickled data file "37_node_dataset_df.p")
 
