@@ -85,6 +85,34 @@ Creates a graph using the adjacency tensor and features matrix from get_adj_feat
 
 Create the generator of the GAN model
 
+### Set parameters
+Parameters specific to users can be changed using the code block under text "Set graph parameters"
+
+Ex)
+- NUM_NODES = 37 # defines the number of nodes (buses) in the graph
+- NODE_DIM = 4+1 # number of node type: plus one for dummy indicating empty node
+- EDGE_DIM = 3+1 # number of edge type: plus one for dummy indicating no edge
+- LATENT_DIM = 64 # dimension size of the latent space that is used for generation
+
+Parameters for training can be changed using the code block under text "Create GAN model and train"
+
+Ex)
+```ruby
+wgan.compile(
+    optimizer_generator=keras.optimizers.Adam(5e-4),
+    optimizer_discriminator=keras.optimizers.Adam(5e-4),
+)
+
+# wgan.fit([adjacency_tensor, feature_tensor], epochs=30, batch_size=1)
+wgan.fit([adjacency_tensor, feature_tensor], epochs=100, batch_size=32)
+```
+- optimization step size = 5e-4 # determines the step size during the optimization (Adam optimizer)
+- epochs = 100 # determines how many epochs for the training process
+- batch_size = 32 # determines the number of data samples used for each training epoch
+
+
+### Building GAN model
+
 #### GraphDiscriminator(*params)
 | Parameter | Type     | Description                       |
 | :-------- | :------- | :-------------------------------- |
